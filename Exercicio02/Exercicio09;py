@@ -1,0 +1,90 @@
+#Implementa uma classe para representar a conta bancária. Alice deve ter uma conta inicial com 500 reais, Bob deve ter uma conta inicial com 1200 reais e Charlie deve ter uma conta inicial com 700 reais.
+#Alice deposita 200 reais e Bob retira 200 reais. Imprime o saldo total de Alice e um sumário da conta de Bob.
+#O programa imprime ao final o saldo somado de todas as contas e o nome da pessoa com maior saldo.
+class Thing:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def action1(self, z):
+        self.y += z
+
+    def action2(self, z):
+        if z <= self.y:
+            self.y -= z
+        else:
+            print("Not enough funds")
+
+    def action3(self):
+        return self.y
+
+    def action4(self):
+        return f"Account: {self.x}, Funds: {self.y}"
+
+def compute(q):
+    return sum(a.y for a in q)
+
+def compute2(q):
+    return max(q, key=lambda a: a.y)
+
+# Example usage
+a1 = Thing("Alice", 500)
+a2 = Thing("Bob", 1200)
+a3 = Thing("Charlie", 700)
+
+a1.action1(200)
+a2.action2(300)
+
+print(a1.action3())
+print(a2.action4())
+
+accounts = [a1, a2, a3]
+print(compute([a1, a2, a3]))
+print(compute2(accounts).x)
+#---------------------------#
+class ContaBancaria:
+    def __init__(self, titular, saldo):
+        self.titular = titular
+        self.saldo = saldo
+
+    def depositar(self, valor):
+        self.saldo += valor
+
+    def sacar(self, valor):
+        if valor <= self.saldo:
+            self.saldo -= valor
+        else:
+            print("Saldo insuficiente")
+
+    def obter_saldo(self):
+        return self.saldo
+
+    def resumo_conta(self):
+        return f"Conta: {self.titular}, Saldo: {self.saldo}"
+
+
+def calcular_saldo_total(contas):
+    return sum(conta.saldo for conta in contas)
+
+
+def encontrar_maior_saldo(contas):
+    return max(contas, key=lambda conta: conta.saldo)
+
+
+# Criando as contas
+conta_alice = ContaBancaria("Alice", 500)
+conta_bob = ContaBancaria("Bob", 1200)
+conta_charlie = ContaBancaria("Charlie", 700)
+
+# Operações
+conta_alice.depositar(200)
+conta_bob.sacar(200)
+
+# Impressões solicitadas
+print(conta_alice.obter_saldo())
+print(conta_bob.resumo_conta())
+
+contas = [conta_alice, conta_bob, conta_charlie]
+
+print(calcular_saldo_total(contas))
+print(encontrar_maior_saldo(contas).titular)
